@@ -8,6 +8,10 @@ three-step preparation list in that browser.
 The product deliberately does not use an AI API, database, account system, analytics SDK, or
 application-side storage. Conversation drafts remain in the visitor's browser.
 
+**Live product:** [sayward.bmparent.chatgpt.site](https://sayward.bmparent.chatgpt.site)
+
+![Sayward desktop preview](artifacts/design/sayward-desktop.png)
+
 ## Product shape
 
 - Six scenarios: boundary, raise, apology, resignation, dispute, and other.
