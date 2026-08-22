@@ -1,6 +1,6 @@
 {
   "product": "Sayward",
-  "generated_at_utc": "2026-08-22T20:05:18Z",
+  "generated_at_utc": "2026-08-22T20:32:00Z",
   "launch_status": "blocked_before_public_deploy",
   "offer": {
     "free_value": "One generated opening script",
@@ -19,9 +19,13 @@
   "hosting": {
     "provider": "ChatGPT Sites",
     "project_id": "appgprj_6a89fcb9ac908191936cd7cace468ea3",
-    "version_saved": false,
+    "version_saved": true,
+    "private_version_number": 1,
+    "private_deployment_created": true,
     "public_deployment_created": false,
-    "public_url": null
+    "stable_url": "https://sayward.bmparent.chatgpt.site",
+    "public_url": null,
+    "access_note": "Version 1 is owner-only and checkout-disabled. It exists to establish the stable Stripe return URL."
   },
   "validation": {
     "production_build": "passed",
@@ -29,7 +33,8 @@
     "tests_passed": 8,
     "tests_failed": 0,
     "production_dependency_vulnerabilities": 0,
-    "browser_qa": "pending final checkout-enabled build"
+    "full_dependency_tree_vulnerabilities": 0,
+    "browser_qa": "Desktop and mobile visual receipts reviewed; final checkout-enabled browser pass remains pending."
   },
   "revenue": {
     "baseline_gross_volume_usd": 0,
@@ -41,6 +46,7 @@
   "evidence": [
     "artifacts/launch/revenue-baseline.json",
     "artifacts/launch/security-audit.md",
+    "artifacts/launch/fidelity-ledger.md",
     "artifacts/launch/launch-report.md",
     "artifacts/design/sayward-desktop.png",
     "artifacts/design/sayward-mobile.png"

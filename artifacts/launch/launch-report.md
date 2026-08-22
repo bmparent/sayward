@@ -1,6 +1,6 @@
 # Sayward launch report
 
-Last updated: August 22, 2026 at 20:05 UTC.
+Last updated: August 22, 2026 at 20:32 UTC.
 
 ## Outcome so far
 
@@ -20,18 +20,21 @@ Verified revenue remains **$0**. No sale or 24-hour earning claim has been made.
 - Production build and lint pass.
 - Eight automated tests pass.
 - Production dependency audit reports zero known vulnerabilities.
-- A ChatGPT Sites project exists for the final version.
+- The full installed dependency tree reports zero known vulnerabilities.
+- ChatGPT Sites version 1 is deployed owner-only at
+  `https://sayward.bmparent.chatgpt.site` to establish the stable return URL.
 
 ## Current blocker
 
 Stripe requires a user-supplied six-digit phone verification code before the CLI can create the
-live product, price, and Payment Link. No credential, phone number, or payment secret is stored
-in this report.
+live product, price, and Payment Link. The authorization page is open in the authenticated
+Chrome profile, but automated control of that tab became unavailable. No credential, phone
+number, verification code, or payment secret is stored in this report.
 
 ## Not yet claimed
 
 - The checkout has not been verified with a live or test payment.
-- No public version has been deployed.
+- No public version has been deployed; the stable URL is owner-only.
 - No marketing post has been published.
 - No sale has been observed.
 - Repeatable demand is unproven.
