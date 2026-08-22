@@ -1,0 +1,32 @@
+{
+  "published_at_utc": "2026-08-22T21:19:51.474535Z",
+  "provider": "ChatGPT Sites",
+  "project_id": "appgprj_6a89fcb9ac908191936cd7cace468ea3",
+  "version": {
+    "id": "appgprj_6a89fcb9ac908191936cd7cace468ea3~appgver_07af0753a2b08191836680c2e33b8400",
+    "number": 2,
+    "source_commit": "9131564606db969ac34446a4b594ed05c522acd0",
+    "archive_sha256": "c6fd0bb3d6ac6dea22f997d2959071315c67c62b5e0fa7a6a20b75b9d14fee0c",
+    "archive_file_count": 90,
+    "archive_size_bytes": 3399680
+  },
+  "deployment": {
+    "id": "appgdep_6a8a126be6e881918bb5abda317cd1ce",
+    "status": "succeeded",
+    "type": "publish",
+    "url": "https://sayward.bmparent.chatgpt.site"
+  },
+  "access_mode": "public",
+  "production_verification": {
+    "homepage": "passed",
+    "privacy_route": "passed",
+    "terms_route": "passed",
+    "checkout_navigation": "passed",
+    "stripe_product_and_price": "passed",
+    "simulated_success_return": "passed",
+    "desktop_1440_by_900": "passed",
+    "mobile_390_by_844": "passed",
+    "console_errors_or_warnings": 0,
+    "real_payment_submitted": false
+  }
+}

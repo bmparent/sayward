@@ -1,7 +1,7 @@
 {
   "product": "Sayward",
-  "generated_at_utc": "2026-08-22T21:08:00Z",
-  "launch_status": "ready_for_public_deploy",
+  "generated_at_utc": "2026-08-22T21:23:58Z",
+  "launch_status": "public_checkout_live_revenue_pending",
   "offer": {
     "free_value": "One generated opening script",
     "paid_value": "Pushback reply, exit line, and three-step preparation list",
@@ -25,11 +25,13 @@
     "project_id": "appgprj_6a89fcb9ac908191936cd7cace468ea3",
     "version_saved": true,
     "private_version_number": 1,
+    "public_version_number": 2,
     "private_deployment_created": true,
-    "public_deployment_created": false,
+    "public_deployment_created": true,
     "stable_url": "https://sayward.bmparent.chatgpt.site",
-    "public_url": null,
-    "access_note": "Version 1 is owner-only and checkout-disabled. The checkout-enabled public version is pending final validation."
+    "public_url": "https://sayward.bmparent.chatgpt.site",
+    "access_mode": "public",
+    "access_note": "Version 2 is public and contains the active $3 Stripe checkout."
   },
   "validation": {
     "production_build": "passed",
@@ -38,7 +40,7 @@
     "tests_failed": 0,
     "production_dependency_vulnerabilities": 0,
     "full_dependency_tree_vulnerabilities": 0,
-    "browser_qa": "Passed locally: page identity, rendered content, script generation, live Stripe navigation, $3 product display, and simulated verified-return unlock. Existing 390 px receipt remains valid because checkout wiring changed no layout code."
+    "browser_qa": "Passed locally and in production: page identity, rendered content, desktop and 390 px responsive layout, script generation, live Stripe navigation, $3 product display, public policy routes, and simulated verified-return unlock. Clean production browser logs contained no errors or warnings."
   },
   "revenue": {
     "baseline_gross_volume_usd": 0,
@@ -46,10 +48,11 @@
     "verified_revenue_after_launch_usd": 0,
     "note": "No revenue claim is made before a successful payment is observed."
   },
-  "source_commit": null,
+  "source_commit": "9131564606db969ac34446a4b594ed05c522acd0",
   "evidence": [
     "artifacts/launch/revenue-baseline.json",
     "artifacts/launch/stripe-receipt.json",
+    "artifacts/launch/sites-receipt.json",
     "artifacts/launch/security-audit.md",
     "artifacts/launch/fidelity-ledger.md",
     "artifacts/launch/launch-report.md",
