@@ -1,0 +1,9 @@
+{
+  "captured_on": "2026-08-22",
+  "currency": "USD",
+  "stripe_dashboard_gross_volume": 0,
+  "sayward_sales": 0,
+  "sayward_revenue": 0,
+  "source": "Read-only observation of the authenticated Stripe dashboard before launch.",
+  "scope_note": "This is a pre-launch baseline, not evidence that the product has earned money."
+}

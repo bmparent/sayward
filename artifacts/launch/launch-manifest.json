@@ -1,0 +1,48 @@
+{
+  "product": "Sayward",
+  "generated_at_utc": "2026-08-22T20:05:18Z",
+  "launch_status": "blocked_before_public_deploy",
+  "offer": {
+    "free_value": "One generated opening script",
+    "paid_value": "Pushback reply, exit line, and three-step preparation list",
+    "price_usd": 3,
+    "billing": "one_time"
+  },
+  "privacy_model": "Conversation inputs are processed in the browser and are not sent to an application endpoint.",
+  "checkout": {
+    "provider": "Stripe Payment Links",
+    "live_product_created": false,
+    "live_price_created": false,
+    "live_payment_link_created": false,
+    "blocker": "Stripe account verification requires a user-supplied six-digit phone code."
+  },
+  "hosting": {
+    "provider": "ChatGPT Sites",
+    "project_id": "appgprj_6a89fcb9ac908191936cd7cace468ea3",
+    "version_saved": false,
+    "public_deployment_created": false,
+    "public_url": null
+  },
+  "validation": {
+    "production_build": "passed",
+    "lint": "passed",
+    "tests_passed": 8,
+    "tests_failed": 0,
+    "production_dependency_vulnerabilities": 0,
+    "browser_qa": "pending final checkout-enabled build"
+  },
+  "revenue": {
+    "baseline_gross_volume_usd": 0,
+    "verified_sales_after_launch": 0,
+    "verified_revenue_after_launch_usd": 0,
+    "note": "No revenue claim is made before a successful payment is observed."
+  },
+  "source_commit": null,
+  "evidence": [
+    "artifacts/launch/revenue-baseline.json",
+    "artifacts/launch/security-audit.md",
+    "artifacts/launch/launch-report.md",
+    "artifacts/design/sayward-desktop.png",
+    "artifacts/design/sayward-mobile.png"
+  ]
+}
