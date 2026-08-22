@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-08-22T21:25:45Z",
+  "source": "Stripe Dashboard payment-link analytics",
+  "payment_link_id": "plink_1U7M8AKC8pRG5Tr9NbwHaRzP",
+  "window": "Aug 22-Aug 22",
+  "recent_payments_status": "No payments",
+  "verified_sales": 0,
+  "verified_gross_revenue_usd": 0,
+  "interpretation": "The checkout is live, but no customer payment had completed at observation time. No revenue or conversion claim is made."
+}

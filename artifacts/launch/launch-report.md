@@ -39,9 +39,20 @@ the repository. Non-secret object receipts are recorded in `stripe-receipt.json`
 ## Not yet claimed
 
 - A real card payment has not been submitted during QA.
-- No marketing post has been published.
+- The GitHub repository and v1.0.0 release are public; a personal-audience post is awaiting
+  action-time approval.
 - No sale has been observed.
 - Repeatable demand is unproven.
+
+## Distribution started
+
+- Public product: `https://sayward.bmparent.chatgpt.site`
+- Public source/project page: `https://github.com/bmparent/sayward`
+- Public launch release: `https://github.com/bmparent/sayward/releases/tag/v1.0.0`
+- No paid ads, unsolicited messages, or bulk outreach were used.
+
+The first post-launch Stripe analytics observation at 21:25 UTC reported **No payments**. That
+zero is recorded in `revenue-observation-2026-08-22T2125Z.json`.
 
 ## Next action
 

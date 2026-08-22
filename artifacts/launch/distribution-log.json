@@ -1,0 +1,29 @@
+{
+  "window_started_at_utc": "2026-08-22T21:19:51.474535Z",
+  "public_product_url": "https://sayward.bmparent.chatgpt.site",
+  "channels": [
+    {
+      "channel": "ChatGPT Sites",
+      "published_at_utc": "2026-08-22T21:19:51.474535Z",
+      "url": "https://sayward.bmparent.chatgpt.site",
+      "status": "public"
+    },
+    {
+      "channel": "GitHub public repository",
+      "published_at_utc": "2026-08-22T21:26:48Z",
+      "url": "https://github.com/bmparent/sayward",
+      "status": "public",
+      "notes": "Repository description, homepage, five relevant topics, and a README product link are present."
+    },
+    {
+      "channel": "GitHub release",
+      "published_at_utc": "2026-08-22T21:27:28Z",
+      "url": "https://github.com/bmparent/sayward/releases/tag/v1.0.0",
+      "status": "public",
+      "notes": "Release notes explain the free value, $3 paid value, browser-local draft behavior, and limits."
+    }
+  ],
+  "paid_or_direct_outreach_used": false,
+  "unsolicited_messages_sent": 0,
+  "revenue_at_latest_observation_usd": 0
+}

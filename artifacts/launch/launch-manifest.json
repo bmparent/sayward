@@ -51,6 +51,8 @@
   "source_commit": "9131564606db969ac34446a4b594ed05c522acd0",
   "evidence": [
     "artifacts/launch/revenue-baseline.json",
+    "artifacts/launch/revenue-observation-2026-08-22T2125Z.json",
+    "artifacts/launch/distribution-log.json",
     "artifacts/launch/stripe-receipt.json",
     "artifacts/launch/sites-receipt.json",
     "artifacts/launch/security-audit.md",

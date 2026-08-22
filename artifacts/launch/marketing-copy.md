@@ -8,7 +8,7 @@ Do not claim a sale, customer outcome, or privacy property beyond what the app a
 There is a particular kind of stress that comes from knowing what you need to say but not how
 to begin. I built Sayward for that moment: choose the situation and tone, then get a clear
 opening for free. The $3 full plan adds a pushback reply, an exit line, and a short prep list.
-Your draft is processed in your browser. [PUBLIC_URL]
+Your draft is processed in your browser. https://sayward.bmparent.chatgpt.site
 
 ## Community post where self-promotion is allowed
 
@@ -22,18 +22,19 @@ adds a reply for pushback, an exit line, and a three-step prep list. There is no
 subscription. It is writing support, not legal, medical, employment, or crisis advice.
 
 I would value blunt feedback on whether the scripts feel useful and whether the one-time offer
-is clear: [PUBLIC_URL]
+is clear: https://sayward.bmparent.chatgpt.site
 
 ## Direct share for an existing contact who has asked for this kind of help
 
 I made a small tool that helps draft a difficult conversation without sending the draft to an
 app server. The opening is free, and the full plan is a one-time $3 unlock. If you have a
-conversation you have been putting off, I would genuinely value your feedback: [PUBLIC_URL]
+conversation you have been putting off, I would genuinely value your feedback:
+https://sayward.bmparent.chatgpt.site
 
 ## Rules for use
 
 - Do not send unsolicited bulk messages.
 - Do not post in communities that prohibit self-promotion.
 - Do not invent testimonials, purchase counts, or outcomes.
-- Replace `[PUBLIC_URL]` only after public verification.
+- The public URL was inserted only after production verification passed.
 - Record each channel and timestamp in the launch report.
