@@ -1,6 +1,6 @@
 {
   "product": "Sayward",
-  "generated_at_utc": "2026-08-22T21:23:58Z",
+  "generated_at_utc": "2026-08-22T21:40:00Z",
   "launch_status": "public_checkout_live_revenue_pending",
   "offer": {
     "free_value": "One generated opening script",
@@ -25,13 +25,13 @@
     "project_id": "appgprj_6a89fcb9ac908191936cd7cace468ea3",
     "version_saved": true,
     "private_version_number": 1,
-    "public_version_number": 2,
+    "public_version_number": 3,
     "private_deployment_created": true,
     "public_deployment_created": true,
     "stable_url": "https://sayward.bmparent.chatgpt.site",
     "public_url": "https://sayward.bmparent.chatgpt.site",
     "access_mode": "public",
-    "access_note": "Version 2 is public and contains the active $3 Stripe checkout."
+    "access_note": "Version 3 is public and contains the active $3 Stripe checkout plus explicit SVG favicon metadata."
   },
   "validation": {
     "production_build": "passed",
@@ -48,7 +48,7 @@
     "verified_revenue_after_launch_usd": 0,
     "note": "No revenue claim is made before a successful payment is observed."
   },
-  "source_commit": "9131564606db969ac34446a4b594ed05c522acd0",
+  "source_commit": "ebfe9ecd78d93d64cbfecc83ee05b5cbe0b4315d",
   "evidence": [
     "artifacts/launch/revenue-baseline.json",
     "artifacts/launch/revenue-observation-2026-08-22T2125Z.json",

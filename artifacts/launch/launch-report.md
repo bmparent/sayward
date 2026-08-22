@@ -24,10 +24,11 @@ Verified revenue remains **$0**. No sale or 24-hour earning claim has been made.
 - Rendered QA passed for script generation, checkout navigation, the live $3 Stripe surface, and
   the simulated success-return unlock state.
 - Live Stripe checkout is active at `https://buy.stripe.com/5kQaEYflE8cd65ueWr8Zq00`.
-- ChatGPT Sites version 2 is public at `https://sayward.bmparent.chatgpt.site`.
+- ChatGPT Sites version 3 is public at `https://sayward.bmparent.chatgpt.site`.
 - The public deployment succeeded from source commit
-  `9131564606db969ac34446a4b594ed05c522acd0`.
+  `ebfe9ecd78d93d64cbfecc83ee05b5cbe0b4315d`.
 - Clean production browser logs contained no errors or warnings.
+- Browser metadata points explicitly to the production SVG favicon.
 
 ## Stripe receipt
 
