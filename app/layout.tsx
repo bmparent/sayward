@@ -21,6 +21,9 @@ export async function generateMetadata(): Promise<Metadata> {
     title: "Sayward — Find the words. Keep your nerve.",
     description:
       "Build a clear, private script for the difficult conversation you have been avoiding.",
+    icons: {
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    },
     openGraph: {
       title: "Sayward — Find the words. Keep your nerve.",
       description:

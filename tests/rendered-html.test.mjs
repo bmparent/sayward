@@ -90,5 +90,6 @@ test("keeps the app responsive, private by default, and free of starter residue"
   assert.match(css, /@media \(max-width: 820px\)/);
   assert.match(css, /prefers-reduced-motion/);
   assert.match(page, /<SaywardApp \/>/);
+  assert.match(layout, /favicon\.svg/);
   assert.match(layout, /Sayward — Find the words/);
 });
