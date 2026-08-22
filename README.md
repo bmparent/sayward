@@ -27,15 +27,15 @@ npm install
 npm run dev
 ```
 
-Create `.env.local` from `.env.example` and add the live Payment Link when checkout should be
-active:
+The live Payment Link is compiled as the production-safe default. To point a local or preview
+build at a different public Payment Link, create `.env.local` from `.env.example` and override:
 
 ```text
 NEXT_PUBLIC_STRIPE_CHECKOUT_URL=https://buy.stripe.com/...
 ```
 
-`NEXT_PUBLIC_STRIPE_CHECKOUT_URL` is intentionally public. Never place a Stripe secret key in
-a `NEXT_PUBLIC_` variable or in this repository.
+Payment Link URLs and `NEXT_PUBLIC_STRIPE_CHECKOUT_URL` are intentionally public. Never place a
+Stripe secret key in a `NEXT_PUBLIC_` variable or in this repository.
 
 ## Validation
 
@@ -71,8 +71,8 @@ revenue or abuse justifies accounts and persistent restore access.
 
 The project is configured for ChatGPT Sites in `.openai/hosting.json`. Build from the repository
 root, package the validated output with the Sites packaging helper, save a version tied to the
-source commit, and deploy that exact version. A public launch must not use the checkout-disabled
-build; set or compile the real Stripe Payment Link first.
+source commit, and deploy that exact version. The production fallback in `app/commerce.ts` is the
+active $3 Payment Link; an environment variable may override it for a separate preview.
 
 ## Known limits
 

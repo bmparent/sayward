@@ -1,0 +1,24 @@
+{
+  "created_at_utc": "2026-08-22T21:07:10Z",
+  "mode": "live",
+  "provider": "Stripe Payment Links",
+  "product": {
+    "id": "prod_V7bHWvXd6mHLZv",
+    "name": "Sayward Full Plan Access"
+  },
+  "price": {
+    "id": "price_1U7M4lKC8pRG5Tr9p17AgSr0",
+    "currency": "usd",
+    "unit_amount": 300,
+    "billing": "one_time"
+  },
+  "payment_link": {
+    "id": "plink_1U7M8AKC8pRG5Tr9NbwHaRzP",
+    "url": "https://buy.stripe.com/5kQaEYflE8cd65ueWr8Zq00",
+    "status": "active",
+    "automatic_tax": true,
+    "success_redirect": "https://sayward.bmparent.chatgpt.site/?unlock=a370a39cef224871921454eba60f669b"
+  },
+  "secret_material_stored": false,
+  "evidence": "Confirmed in the authenticated Stripe Dashboard after product, price, and Payment Link creation."
+}

@@ -1,4 +1,7 @@
-export const CHECKOUT_URL = process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_URL?.trim() ?? "";
+const LIVE_CHECKOUT_URL = "https://buy.stripe.com/5kQaEYflE8cd65ueWr8Zq00";
+
+export const CHECKOUT_URL =
+  process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_URL?.trim() || LIVE_CHECKOUT_URL;
 export const STORAGE_KEY = "sayward-lifetime-access";
 
 const UNLOCK_TOKEN = "a370a39cef224871921454eba60f669b";

@@ -1,7 +1,7 @@
 {
   "product": "Sayward",
-  "generated_at_utc": "2026-08-22T20:32:00Z",
-  "launch_status": "blocked_before_public_deploy",
+  "generated_at_utc": "2026-08-22T21:08:00Z",
+  "launch_status": "ready_for_public_deploy",
   "offer": {
     "free_value": "One generated opening script",
     "paid_value": "Pushback reply, exit line, and three-step preparation list",
@@ -11,10 +11,14 @@
   "privacy_model": "Conversation inputs are processed in the browser and are not sent to an application endpoint.",
   "checkout": {
     "provider": "Stripe Payment Links",
-    "live_product_created": false,
-    "live_price_created": false,
-    "live_payment_link_created": false,
-    "blocker": "Stripe account verification requires a user-supplied six-digit phone code."
+    "live_product_created": true,
+    "live_price_created": true,
+    "live_payment_link_created": true,
+    "price_id": "price_1U7M4lKC8pRG5Tr9p17AgSr0",
+    "payment_link_id": "plink_1U7M8AKC8pRG5Tr9NbwHaRzP",
+    "public_checkout_url": "https://buy.stripe.com/5kQaEYflE8cd65ueWr8Zq00",
+    "success_redirect": "https://sayward.bmparent.chatgpt.site/?unlock=a370a39cef224871921454eba60f669b",
+    "blocker": null
   },
   "hosting": {
     "provider": "ChatGPT Sites",
@@ -25,7 +29,7 @@
     "public_deployment_created": false,
     "stable_url": "https://sayward.bmparent.chatgpt.site",
     "public_url": null,
-    "access_note": "Version 1 is owner-only and checkout-disabled. It exists to establish the stable Stripe return URL."
+    "access_note": "Version 1 is owner-only and checkout-disabled. The checkout-enabled public version is pending final validation."
   },
   "validation": {
     "production_build": "passed",
@@ -34,7 +38,7 @@
     "tests_failed": 0,
     "production_dependency_vulnerabilities": 0,
     "full_dependency_tree_vulnerabilities": 0,
-    "browser_qa": "Desktop and mobile visual receipts reviewed; final checkout-enabled browser pass remains pending."
+    "browser_qa": "Passed locally: page identity, rendered content, script generation, live Stripe navigation, $3 product display, and simulated verified-return unlock. Existing 390 px receipt remains valid because checkout wiring changed no layout code."
   },
   "revenue": {
     "baseline_gross_volume_usd": 0,
@@ -45,6 +49,7 @@
   "source_commit": null,
   "evidence": [
     "artifacts/launch/revenue-baseline.json",
+    "artifacts/launch/stripe-receipt.json",
     "artifacts/launch/security-audit.md",
     "artifacts/launch/fidelity-ledger.md",
     "artifacts/launch/launch-report.md",

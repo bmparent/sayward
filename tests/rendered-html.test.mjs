@@ -79,6 +79,7 @@ test("keeps the app responsive, private by default, and free of starter residue"
   assert.doesNotMatch(app, /fetch\(|XMLHttpRequest|OPENAI_API_KEY|STRIPE_SECRET/);
   assert.doesNotMatch(app, /buy\.stripe\.com\/placeholder/);
   assert.match(commerce, /NEXT_PUBLIC_STRIPE_CHECKOUT_URL/);
+  assert.match(commerce, /https:\/\/buy\.stripe\.com\/[A-Za-z0-9]+/);
   assert.match(commerce, /buy\\\.stripe\\\.com/);
   assert.match(app, /Checkout is being activated/);
   assert.match(app, /window\.localStorage/);

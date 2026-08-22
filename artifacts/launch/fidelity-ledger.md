@@ -32,8 +32,11 @@ Reviewed August 22, 2026 against:
 | Paywall benefit | “The full plan includes more options tailored to your situation.” | Names pushback reply, exit line, and three-step prep list. | Makes the paid value concrete. |
 | Purchase note | “One-time unlock. Use as many times as you need.” | Current source says “One-time purchase. Unlocks full plans in this browser.” | Removes a broader persistence promise that local storage cannot guarantee. |
 
-## Remaining visual check
+## Release visual check
 
-The desktop receipt predates the final purchase-note wording and legal footer links; neither
-changes the recorded above-the-fold geometry. A fresh checkout-enabled desktop and mobile pass
-is still required immediately before public access is enabled.
+The checkout-enabled release was rechecked in the rendered production build on August 22, 2026.
+Desktop composition, script generation, the locked offer, and the paid-return state rendered
+without clipping or a framework overlay. The live unlock button navigated to Stripe Checkout,
+where the correct Sayward product and $3.00 total were visible. The existing 390 px receipt
+remains representative because the release changed only the Payment Link constant and no layout
+or component code. A real payment was intentionally not submitted during QA.
