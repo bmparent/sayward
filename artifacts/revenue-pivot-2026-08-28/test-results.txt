@@ -1,0 +1,33 @@
+Sayward revenue pivot validation — 2026-08-28
+
+Command: npm run build
+Result: PASS
+Evidence: Vinext completed all five build stages and emitted the product, agent docs,
+discovery APIs, paid plan API, verification API, privacy, and terms routes.
+
+Command: node --test tests/message-engine.test.mjs tests/rendered-html.test.mjs
+Result: PASS — 13 passed, 0 failed
+Coverage includes all scenario/tone combinations, Stripe return validation, exact-price
+session verification, API input validation, local Stripe and Tempo MPP HTTP 402 challenges,
+server-rendered pages, discovery metadata, and fail-closed behavior without secrets.
+
+Command: npx tsc --noEmit --pretty false
+Result: PASS
+
+Command: npm run lint
+Result: PASS
+
+Command: npm audit --omit=dev --audit-level=moderate
+Result: PASS — found 0 vulnerabilities
+
+Browser validation: PASS against the built Cloudflare worker at a local address.
+- Customer form produced the expected warm-tone script after edited input.
+- Agent API documentation rendered with endpoint, $0.50 price, request shape, and discovery links.
+- Browser console warnings/errors: 0.
+- Visual receipt: sayward-local-verified.png.
+
+Not tested:
+- A live external MPP settlement; it needs configured production secrets, a real receiving address
+  or Stripe agent-payment access, and a real payer.
+- A live $3 browser purchase; no self-payment was made.
+- Production deployment; approved and pending the pushed source/version workflow.

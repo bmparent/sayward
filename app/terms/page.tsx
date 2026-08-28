@@ -32,8 +32,17 @@ export default function TermsPage() {
       <h2>Purchase</h2>
       <p>
         The listed $3 payment is a one-time purchase that unlocks full plans in the browser
-        that returns from Stripe checkout. It is not a subscription. Clearing that browser&apos;s
-        site storage removes its local access flag.
+        after Sayward verifies the completed Stripe Checkout Session. It is not a subscription.
+        Clearing that browser&apos;s site storage removes its local access flag.
+      </p>
+
+      <h2>Agent API</h2>
+      <p>
+        The Agent API charges the amount shown in its HTTP payment challenge for each completed
+        request. Payment can be offered through the methods listed by the live API, including Tempo
+        or Stripe when configured. Invalid requests are rejected before payment. A successful paid
+        response includes a payment receipt. API output has the same writing-support limitations as
+        the website.
       </p>
 
       <h2>Problems and refunds</h2>

@@ -7,9 +7,14 @@ import {
   toneOptions,
 } from "../app/message-engine.ts";
 import {
+  getPurchaseSessionId,
   isCheckoutReady,
-  isValidPurchaseReturn,
 } from "../app/commerce.ts";
+import { isPaidSaywardSession } from "../app/commerce-server.ts";
+import { parseConversationInput } from "../app/api/v1/input.ts";
+import {
+  chargeMachinePlan,
+} from "../app/api/v1/payment.ts";
 
 const baseInput = {
   scenario: "boundary",
@@ -75,11 +80,94 @@ test("accepts only Stripe-hosted Payment Links", () => {
   assert.equal(isCheckoutReady(""), false);
 });
 
-test("recognizes only the configured payment-return value", () => {
-  assert.equal(
-    isValidPurchaseReturn("?unlock=a370a39cef224871921454eba60f669b"),
-    true,
-  );
-  assert.equal(isValidPurchaseReturn("?unlock=wrong"), false);
-  assert.equal(isValidPurchaseReturn(""), false);
+test("accepts only Stripe Checkout Session identifiers from the return URL", () => {
+  assert.equal(getPurchaseSessionId("?session_id=cs_live_abc123"), "cs_live_abc123");
+  assert.equal(getPurchaseSessionId("?session_id=cs_test_abc123"), "cs_test_abc123");
+  assert.equal(getPurchaseSessionId("?session_id=not-a-session"), null);
+  assert.equal(getPurchaseSessionId("?unlock=anything"), null);
+});
+
+test("verifies payment completion and the exact Sayward price", () => {
+  const paidSession = {
+    id: "cs_live_abc123",
+    mode: "payment",
+    status: "complete",
+    payment_status: "paid",
+    line_items: { data: [{ price: { id: "price_sayward" } }] },
+  };
+
+  assert.equal(isPaidSaywardSession(paidSession, "price_sayward"), true);
+  assert.equal(isPaidSaywardSession({ ...paidSession, payment_status: "unpaid" }, "price_sayward"), false);
+  assert.equal(isPaidSaywardSession(paidSession, "price_other"), false);
+});
+
+test("validates and normalizes machine API input before payment", () => {
+  const parsed = parseConversationInput({
+    ...baseInput,
+    person: "  My manager  ",
+  });
+  assert.equal(parsed.ok, true);
+  assert.equal(parsed.ok && parsed.input.person, "My manager");
+
+  const invalid = parseConversationInput({ ...baseInput, need: "" });
+  assert.equal(invalid.ok, false);
+});
+
+test("emits a Stripe-backed HTTP 402 challenge without contacting Stripe", async () => {
+  const priorStripeKey = process.env.STRIPE_SECRET_KEY;
+  const priorMppKey = process.env.MPP_SECRET_KEY;
+  const priorTempoRecipient = process.env.MPP_TEMPO_RECIPIENT;
+
+  try {
+    process.env.STRIPE_SECRET_KEY = "test-only-not-a-stripe-key";
+    process.env.MPP_SECRET_KEY = "0123456789abcdef0123456789abcdef";
+    delete process.env.MPP_TEMPO_RECIPIENT;
+
+    const payment = await chargeMachinePlan(
+      new Request("https://example.test/api/v1/plan", { method: "POST" }),
+    );
+
+    assert.ok(payment);
+    assert.equal(payment.status, 402);
+    assert.match(payment.challenge.headers.get("www-authenticate") ?? "", /^Payment /);
+    assert.match(payment.challenge.headers.get("www-authenticate") ?? "", /method="stripe"/);
+  } finally {
+    if (priorStripeKey === undefined) delete process.env.STRIPE_SECRET_KEY;
+    else process.env.STRIPE_SECRET_KEY = priorStripeKey;
+    if (priorMppKey === undefined) delete process.env.MPP_SECRET_KEY;
+    else process.env.MPP_SECRET_KEY = priorMppKey;
+    if (priorTempoRecipient === undefined) delete process.env.MPP_TEMPO_RECIPIENT;
+    else process.env.MPP_TEMPO_RECIPIENT = priorTempoRecipient;
+  }
+});
+
+test("emits an open-network Tempo HTTP 402 fallback without a Stripe key", async () => {
+  const priorStripeKey = process.env.STRIPE_SECRET_KEY;
+  const priorMppKey = process.env.MPP_SECRET_KEY;
+  const priorTempoRecipient = process.env.MPP_TEMPO_RECIPIENT;
+  const priorTempoTestnet = process.env.MPP_TEMPO_TESTNET;
+
+  try {
+    delete process.env.STRIPE_SECRET_KEY;
+    process.env.MPP_SECRET_KEY = "0123456789abcdef0123456789abcdef";
+    process.env.MPP_TEMPO_RECIPIENT = "0x000000000000000000000000000000000000dEaD";
+    process.env.MPP_TEMPO_TESTNET = "true";
+
+    const payment = await chargeMachinePlan(
+      new Request("https://example.test/api/v1/plan", { method: "POST" }),
+    );
+
+    assert.ok(payment);
+    assert.equal(payment.status, 402);
+    assert.match(payment.challenge.headers.get("www-authenticate") ?? "", /method="tempo"/);
+  } finally {
+    if (priorStripeKey === undefined) delete process.env.STRIPE_SECRET_KEY;
+    else process.env.STRIPE_SECRET_KEY = priorStripeKey;
+    if (priorMppKey === undefined) delete process.env.MPP_SECRET_KEY;
+    else process.env.MPP_SECRET_KEY = priorMppKey;
+    if (priorTempoRecipient === undefined) delete process.env.MPP_TEMPO_RECIPIENT;
+    else process.env.MPP_TEMPO_RECIPIENT = priorTempoRecipient;
+    if (priorTempoTestnet === undefined) delete process.env.MPP_TEMPO_TESTNET;
+    else process.env.MPP_TEMPO_TESTNET = priorTempoTestnet;
+  }
 });

@@ -1,26 +1,15 @@
 # Sayward
 
-Sayward is a small paid browser tool for preparing difficult conversations. A visitor enters
-the situation, person, desired outcome, and tone. The deterministic local engine returns a
-free opening. A $3 one-time Stripe Payment Link unlocks the pushback reply, exit line, and
-three-step preparation list in that browser.
+Sayward sells deterministic difficult-conversation plans through two surfaces:
 
-The product deliberately does not use an AI API, database, account system, analytics SDK, or
-application-side storage. Conversation drafts remain in the visitor's browser.
+- A browser product with a free opening and a $3 one-time Stripe checkout for the full plan.
+- A machine-payable HTTP API that charges $0.50 per complete plan through Machine Payments
+  Protocol (MPP), with Tempo as the open-network path and Stripe as an optional agent-payment path.
+
+The browser engine remains local. The API processes one validated request in memory and returns the
+same deterministic plan with an MPP payment receipt.
 
 **Live product:** [sayward.bmparent.chatgpt.site](https://sayward.bmparent.chatgpt.site)
-
-![Sayward desktop preview](artifacts/design/sayward-desktop.png)
-
-## Product shape
-
-- Six scenarios: boundary, raise, apology, resignation, dispute, and other.
-- Three tones: warm, direct, and firm.
-- Free, immediately useful opening script.
-- $3 one-time full-plan unlock through Stripe-hosted checkout.
-- Responsive editorial UI with reduced-motion support.
-- Plain-language privacy and terms pages.
-- Static social preview image at `public/og.png`.
 
 ## Run from the repository root
 
@@ -31,15 +20,65 @@ npm install
 npm run dev
 ```
 
-The live Payment Link is compiled as the production-safe default. To point a local or preview
-build at a different public Payment Link, create `.env.local` from `.env.example` and override:
+Copy `.env.example` to `.env.local` for local payment-path development. Never put Stripe or MPP
+secrets in a `NEXT_PUBLIC_` variable or commit them.
+
+## Browser checkout
+
+The browser sends customers to the existing Stripe Payment Link. Its post-payment redirect must be:
 
 ```text
-NEXT_PUBLIC_STRIPE_CHECKOUT_URL=https://buy.stripe.com/...
+https://sayward.bmparent.chatgpt.site/?session_id={CHECKOUT_SESSION_ID}
 ```
 
-Payment Link URLs and `NEXT_PUBLIC_STRIPE_CHECKOUT_URL` are intentionally public. Never place a
-Stripe secret key in a `NEXT_PUBLIC_` variable or in this repository.
+Sayward then retrieves that Checkout Session server-side and unlocks only when it is complete,
+paid, and contains `STRIPE_EXPECTED_PRICE_ID`. The browser stores only a local access flag.
+
+## Machine-payable API
+
+Discovery endpoints:
+
+- `GET /api/v1`
+- `GET /api/v1/openapi.json`
+- `GET /llms.txt`
+- `GET /agents`
+
+Paid endpoint:
+
+```http
+POST /api/v1/plan
+Content-Type: application/json
+
+{
+  "scenario": "boundary",
+  "tone": "firm",
+  "person": "My manager",
+  "happened": "Extra work has become the default.",
+  "need": "Reset priorities and ownership."
+}
+```
+
+Valid unpaid requests receive an HTTP 402 MPP challenge for $0.50. A successful paid retry returns
+the plan and a `Payment-Receipt` header. Invalid input is rejected before payment. The live
+discovery document lists only the payment methods that are actually configured.
+
+Required server-only production variables:
+
+```text
+STRIPE_SECRET_KEY=
+STRIPE_EXPECTED_PRICE_ID=price_1U7M4lKC8pRG5Tr9p17AgSr0
+STRIPE_NETWORK_ID=internal
+MPP_SECRET_KEY=
+MPP_REALM=sayward.bmparent.chatgpt.site
+MPP_TEMPO_RECIPIENT=
+MPP_TEMPO_TESTNET=false
+```
+
+`MPP_SECRET_KEY` must be a high-entropy secret of at least 32 bytes. `MPP_TEMPO_RECIPIENT` must be a
+revenue-receiving address controlled by the owner. The Stripe key must have only the permissions
+needed to read Checkout Sessions and create the payment objects required by the MPP Stripe method.
+Stripe Shared Payment Tokens are a private preview, so Tempo is the non-preview fallback rather
+than assuming the Stripe account has agent-payment access.
 
 ## Validation
 
@@ -48,39 +87,22 @@ npm run lint
 npm test
 ```
 
-`npm test` builds the production worker, checks the server-rendered product and policy pages,
-and runs the real conversation engine across every scenario/tone combination.
+The suite builds the production worker, exercises all 18 scenario/tone combinations, verifies the
+paid-session rules, validates API input, renders the product and policy pages, tests discovery, and
+confirms paid endpoints fail closed when secrets are absent.
 
-## Payment return design
+## Privacy and limits
 
-Stripe redirects a successful purchase to the public Sayward URL with the configured `unlock`
-query value. The browser then stores `sayward-lifetime-access=yes` in local storage and removes
-the query string from the visible URL.
-
-This is an intentionally low-complexity paywall for a $3 static product. The return value is
-present in client code and is not equivalent to server-verified entitlement. It can be bypassed
-by a technical user and it does not synchronize across devices. Replacing it with a Stripe
-Checkout Session plus a server-side webhook/entitlement record is the appropriate upgrade if
-revenue or abuse justifies accounts and persistent restore access.
-
-## Privacy behavior
-
-- Draft fields are not sent to an application endpoint.
-- Stripe handles payment-card data on Stripe-hosted pages.
-- The browser stores only the purchase-access flag, not draft or card data.
-- The hosting layer may retain ordinary request/security logs.
-- No advertising tracker or analytics cookie is included.
+- Browser drafts are not sent to the application server.
+- Agent API request bodies are processed server-side and should not contain secrets or highly
+  sensitive information.
+- Stripe handles payment-card data.
+- The app does not promise a specific conversation outcome.
+- Revenue is proven only by provider payment analytics, never by deployment or a simulated unlock.
 
 ## Deployment
 
-The project is configured for ChatGPT Sites in `.openai/hosting.json`. Build from the repository
-root, package the validated output with the Sites packaging helper, save a version tied to the
-source commit, and deploy that exact version. The production fallback in `app/commerce.ts` is the
-active $3 Payment Link; an environment variable may override it for a separate preview.
-
-## Known limits
-
-- Generated text is template-based writing support, not professional advice.
-- Access is local to the browser that returns from checkout.
-- Clearing site storage removes the access flag.
-- The app does not promise that a conversation will have a particular outcome.
+The project is configured for ChatGPT Sites in `.openai/hosting.json`. Build and test from the
+repository root, configure production secrets through the hosting environment, package the exact
+validated output, then save and publicly deploy that version. Register the live API with compatible
+MPP discovery services only after the production 402 response is verified.

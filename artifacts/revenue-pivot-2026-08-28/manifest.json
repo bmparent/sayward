@@ -1,0 +1,41 @@
+{
+  "run_id": "sayward-machine-revenue-pivot-2026-08-28",
+  "date": "2026-08-28",
+  "source_branch": "main",
+  "source_state": "validated_pending_commit",
+  "baseline_commit": "382175a",
+  "strategy": "preserve the $3 browser product and add a $0.50 MPP endpoint with Tempo and optional Stripe offers",
+  "paid_endpoint": "/api/v1/plan",
+  "price_usd": "0.50",
+  "human_checkout_price_usd": "3.00",
+  "validation": {
+    "production_build": "passed",
+    "tests": "13 passed, 0 failed",
+    "typescript": "passed",
+    "eslint": "passed",
+    "production_dependency_audit": "0 vulnerabilities",
+    "browser_render": "passed locally against the built worker",
+    "browser_console_errors": 0,
+    "live_payment_settlement": "not attempted"
+  },
+  "deployment": {
+    "status": "approved_pending_publish",
+    "production_environment_revision": 0,
+    "production_environment_variables": 0
+  },
+  "revenue": {
+    "today_status": "confirmed_zero",
+    "gross_revenue_usd": "0.00",
+    "payments": 0,
+    "observed_at": "2026-08-28T18:18:00-04:00",
+    "reason": "The signed-in Stripe dashboard reported $0.00 gross volume today and no payment data. No sale is inferred from deployment or testing.",
+    "last_verified_status": "zero revenue on 2026-08-22"
+  },
+  "artifacts": [
+    "implementation-report.md",
+    "test-results.txt",
+    "revenue-baseline.json",
+    "distribution-plan.md",
+    "sayward-local-verified.png"
+  ]
+}

@@ -1,0 +1,17 @@
+# Sayward
+
+Sayward generates deterministic scripts for difficult conversations.
+
+## Machine-payable API
+
+- Service metadata: https://sayward.bmparent.chatgpt.site/api/v1
+- OpenAPI discovery: https://sayward.bmparent.chatgpt.site/api/v1/openapi.json
+- Paid endpoint: POST https://sayward.bmparent.chatgpt.site/api/v1/plan
+- Payment protocol: Machine Payments Protocol (HTTP 402)
+- Payment methods: Tempo and Stripe (the live discovery document lists configured offers)
+- Price: $0.50 USD per completed plan
+- Documentation: https://sayward.bmparent.chatgpt.site/agents
+
+Valid requests are checked before payment. A paid retry returns JSON and a Payment-Receipt header.
+
+Sayward is writing support only. It is not legal, medical, employment, crisis, or safety advice.

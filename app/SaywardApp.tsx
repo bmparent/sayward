@@ -4,8 +4,8 @@ import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
   CHECKOUT_URL,
   STORAGE_KEY,
+  getPurchaseSessionId,
   isCheckoutReady,
-  isValidPurchaseReturn,
 } from "./commerce";
 import {
   buildConversationPlan,
@@ -43,23 +43,53 @@ export function SaywardApp() {
   const [unlocked, setUnlocked] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [justUnlocked, setJustUnlocked] = useState(false);
+  const [verifyingPurchase, setVerifyingPurchase] = useState(false);
   const [checkoutError, setCheckoutError] = useState("");
 
   useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      const validReturn = isValidPurchaseReturn(window.location.search);
-      const stored = window.localStorage.getItem(STORAGE_KEY) === "yes";
+    const controller = new AbortController();
+    const stored = window.localStorage.getItem(STORAGE_KEY) === "yes";
+    const sessionId = getPurchaseSessionId(window.location.search);
 
-      if (validReturn) {
+    if (!sessionId) {
+      const accessTimer = window.setTimeout(() => setUnlocked(stored), 0);
+      return () => {
+        window.clearTimeout(accessTimer);
+        controller.abort();
+      };
+    }
+
+    const verificationTimer = window.setTimeout(() => setVerifyingPurchase(true), 0);
+    fetch(`/api/verify-purchase?session_id=${encodeURIComponent(sessionId)}`, {
+      cache: "no-store",
+      signal: controller.signal,
+    })
+      .then(async (response) => {
+        const result = (await response.json()) as { ok?: boolean };
+        if (!response.ok || !result.ok) throw new Error("Purchase could not be verified.");
+
         window.localStorage.setItem(STORAGE_KEY, "yes");
+        setUnlocked(true);
         setJustUnlocked(true);
         window.history.replaceState({}, "", window.location.pathname);
-      }
+      })
+      .catch((verificationError: unknown) => {
+        if (controller.signal.aborted) return;
+        setUnlocked(stored);
+        setCheckoutError(
+          verificationError instanceof Error
+            ? verificationError.message
+            : "Purchase could not be verified.",
+        );
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setVerifyingPurchase(false);
+      });
 
-      setUnlocked(validReturn || stored);
-    });
-
-    return () => window.cancelAnimationFrame(frame);
+    return () => {
+      window.clearTimeout(verificationTimer);
+      controller.abort();
+    };
   }, []);
 
   const plan = useMemo(() => buildConversationPlan(submitted), [submitted]);
@@ -207,6 +237,12 @@ export function SaywardApp() {
             </div>
           ) : null}
 
+          {verifyingPurchase ? (
+            <div className="unlock-notice" role="status">
+              Verifying your Stripe payment…
+            </div>
+          ) : null}
+
           <ScriptSection
             copied={copied === "Opening"}
             heading="Opening"
@@ -247,6 +283,7 @@ export function SaywardApp() {
       <footer>
         <p>Writing support, not legal, medical, or crisis advice.</p>
         <p className="footer-links">
+          <a href="/agents">Agent API</a>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
           <span>© 2026 Sayward</span>
@@ -309,7 +346,7 @@ function LockedPlan({
         <button onClick={onCheckout} type="button">
           Unlock the full plan — $3
         </button>
-        <small>One-time purchase. Unlocks full plans in this browser.</small>
+        <small>One-time purchase. Stripe verifies access after payment.</small>
         {checkoutError ? (
           <span className="checkout-error" role="alert">
             {checkoutError}

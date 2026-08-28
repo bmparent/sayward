@@ -17,16 +17,20 @@ export default function PrivacyPage() {
 
       <h2>Your drafts</h2>
       <p>
-        The names and conversation details you enter are processed in your browser to create
-        your script. Sayward does not send or save those drafts on an application server.
+        On the website, names and conversation details are processed in your browser and are not
+        sent to the application server. Agent API requests are processed on the server to return a
+        plan but are not deliberately stored by Sayward. Ordinary infrastructure logs may still
+        contain request metadata, so do not submit secrets or highly sensitive information.
       </p>
 
       <h2>Purchase access</h2>
       <p>
         When you purchase the full plan, checkout is handled by Stripe. Stripe processes the
         payment information under its own privacy policy. After a successful payment, Sayward
-        stores a small access flag in this browser so the full plan stays unlocked here. It
-        does not contain your conversation text or payment-card details.
+        verifies the completed Checkout Session with Stripe, then stores a small access flag in
+        this browser so the full plan stays unlocked here. It does not contain your conversation
+        text or payment-card details. Agent API payments may use Stripe or Tempo and return a
+        protocol payment receipt.
       </p>
 
       <h2>Hosting data</h2>

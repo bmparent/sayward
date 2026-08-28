@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-08-28T18:18:00-04:00",
+  "provider": "Stripe",
+  "today": {
+    "revenue_status": "confirmed_zero",
+    "observation_status": "verified",
+    "gross_revenue_usd": "0.00",
+    "payments": 0,
+    "reason": "The signed-in Stripe dashboard reported $0.00 gross volume today and no payment data."
+  },
+  "last_verified": {
+    "date": "2026-08-22",
+    "payments": 0,
+    "gross_revenue_usd": "0.00",
+    "source": "prior Stripe analytics receipt"
+  },
+  "interpretation": "The provider-confirmed starting point for the launch is $0.00 today. A build, deployment, checkout visit, HTTP 402 response, or simulated unlock does not count as revenue. Only a provider-confirmed external payment will change the outcome."
+}
