@@ -65,10 +65,11 @@ test("server-renders the privacy and terms receipts", async () => {
 });
 
 test("publishes machine-readable agent discovery and fails closed without payment secrets", async () => {
-  const [agentsResponse, serviceResponse, openapiResponse, planResponse] = await Promise.all([
+  const [agentsResponse, serviceResponse, openapiResponse, canonicalOpenapiResponse, planResponse] = await Promise.all([
     request("/agents"),
     request("/api/v1", { headers: { accept: "application/json" } }),
     request("/api/v1/openapi.json", { headers: { accept: "application/json" } }),
+    request("/openapi.json", { headers: { accept: "application/json" } }),
     request("/api/v1/plan", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -89,8 +90,18 @@ test("publishes machine-readable agent discovery and fails closed without paymen
   assert.equal((await serviceResponse.json()).service, "Sayward Agent API");
 
   assert.equal(openapiResponse.status, 200);
+  assert.equal(canonicalOpenapiResponse.status, 200);
   const openapi = await openapiResponse.json();
+  const canonicalOpenapi = await canonicalOpenapiResponse.json();
   assert.equal(openapi.openapi, "3.1.0");
+  assert.deepEqual(canonicalOpenapi, openapi);
+  assert.equal(openapi.info["x-guidance"].includes("POST /api/v1/plan"), true);
+  assert.deepEqual(openapi.paths["/api/v1/plan"].post["x-payment-info"].price, {
+    mode: "fixed",
+    currency: "USD",
+    amount: "0.50",
+  });
+  assert.deepEqual(openapi.paths["/api/v1/plan"].post["x-payment-info"].protocols, []);
   assert.deepEqual(openapi.paths["/api/v1/plan"].post["x-payment-info"].offers, []);
   assert.deepEqual(
     openapi.paths["/api/v1/plan"].post["x-payment-info"].supported_methods,
