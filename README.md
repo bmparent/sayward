@@ -32,13 +32,17 @@ https://sayward.bmparent.chatgpt.site/?session_id={CHECKOUT_SESSION_ID}
 ```
 
 Sayward then retrieves that Checkout Session server-side and unlocks only when it is complete,
-paid, and contains `STRIPE_EXPECTED_PRICE_ID`. The browser stores only a local access flag.
+paid, and contains `STRIPE_EXPECTED_PRICE_ID`. The browser stores only a local access flag. Keep
+`NEXT_PUBLIC_BROWSER_CHECKOUT_ENABLED=false` until the Stripe verifier and redirect are both live;
+the UI then routes visitors to the working machine-payable API instead of accepting an
+undeliverable browser payment.
 
 ## Machine-payable API
 
 Discovery endpoints:
 
 - `GET /api/v1`
+- `GET /openapi.json` (canonical registry document)
 - `GET /api/v1/openapi.json`
 - `GET /llms.txt`
 - `GET /agents`
@@ -68,6 +72,7 @@ Required server-only production variables:
 STRIPE_SECRET_KEY=
 STRIPE_EXPECTED_PRICE_ID=price_1U7M4lKC8pRG5Tr9p17AgSr0
 STRIPE_NETWORK_ID=internal
+NEXT_PUBLIC_BROWSER_CHECKOUT_ENABLED=false
 MPP_SECRET_KEY=
 MPP_REALM=sayward.bmparent.chatgpt.site
 MPP_TEMPO_RECIPIENT=

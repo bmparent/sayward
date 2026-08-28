@@ -239,7 +239,8 @@ form {
 }
 
 .build-button,
-.paywall button {
+.paywall button,
+.paywall .agent-pay-link {
   background: var(--accent);
   border: 1px solid var(--accent);
   border-radius: 6px;
@@ -247,13 +248,15 @@ form {
   cursor: pointer;
   font-size: 18px;
   font-weight: 750;
+  justify-content: center;
   min-height: 60px;
   padding: 14px 22px;
   transition: background 150ms ease, box-shadow 150ms ease, transform 150ms ease;
 }
 
 .build-button:hover,
-.paywall button:hover {
+.paywall button:hover,
+.paywall .agent-pay-link:hover {
   background: var(--accent-dark);
   box-shadow: 0 10px 24px rgba(189, 40, 23, 0.17);
   transform: translateY(-1px);
@@ -424,9 +427,13 @@ form {
   max-width: 610px;
 }
 
-.paywall button {
+.paywall button,
+.paywall .agent-pay-link {
+  align-items: center;
+  display: flex;
   font-size: 18px;
   max-width: 620px;
+  text-decoration: none;
   width: 100%;
 }
 
@@ -659,7 +666,8 @@ footer p {
     padding: 11px 13px;
   }
 
-  .paywall button {
+  .paywall button,
+  .paywall .agent-pay-link {
     font-size: 16px;
   }
 }

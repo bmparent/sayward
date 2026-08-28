@@ -37,7 +37,9 @@ test("server-renders the sellable Sayward experience", async () => {
   assert.match(html, /What do you need\?/);
   assert.match(html, /Build my script/);
   assert.match(html, /Your script/);
-  assert.match(html, /Unlock the full plan — \$3/);
+  assert.match(html, /Use the agent API — \$0\.50 per plan/);
+  assert.match(html, /Browser checkout is paused while payment verification is finalized/);
+  assert.doesNotMatch(html, /Unlock the full plan — \$3/);
   assert.match(html, /Your words stay in this browser\./);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Starter Project/i);
 });
@@ -128,9 +130,11 @@ test("keeps the app responsive, private by default, and free of starter residue"
   assert.doesNotMatch(app, /XMLHttpRequest|OPENAI_API_KEY|STRIPE_SECRET/);
   assert.doesNotMatch(app, /buy\.stripe\.com\/placeholder/);
   assert.match(commerce, /NEXT_PUBLIC_STRIPE_CHECKOUT_URL/);
+  assert.match(commerce, /NEXT_PUBLIC_BROWSER_CHECKOUT_ENABLED/);
   assert.match(commerce, /https:\/\/buy\.stripe\.com\/[A-Za-z0-9]+/);
   assert.match(commerce, /buy\\\.stripe\\\.com/);
   assert.match(app, /Verifying your Stripe payment/);
+  assert.match(app, /Browser checkout is paused while payment verification is finalized/);
   assert.match(app, /\/api\/verify-purchase/);
   assert.match(app, /window\.localStorage/);
   assert.match(app, /navigator\.clipboard/);

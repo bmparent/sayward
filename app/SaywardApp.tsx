@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
+  BROWSER_CHECKOUT_ENABLED,
   CHECKOUT_URL,
   STORAGE_KEY,
   getPurchaseSessionId,
@@ -343,11 +344,22 @@ function LockedPlan({
       <div className="paywall">
         <span aria-hidden="true" className="lock-mark" />
         <p>The full plan includes pushback replies, an exit line, and a three-step prep list.</p>
-        <button onClick={onCheckout} type="button">
-          Unlock the full plan — $3
-        </button>
-        <small>One-time purchase. Stripe verifies access after payment.</small>
-        {checkoutError ? (
+        {BROWSER_CHECKOUT_ENABLED ? (
+          <>
+            <button onClick={onCheckout} type="button">
+              Unlock the full plan — $3
+            </button>
+            <small>One-time purchase. Stripe verifies access after payment.</small>
+          </>
+        ) : (
+          <>
+            <a className="agent-pay-link" href="/agents">
+              Use the agent API — $0.50 per plan
+            </a>
+            <small>Browser checkout is paused while payment verification is finalized.</small>
+          </>
+        )}
+        {BROWSER_CHECKOUT_ENABLED && checkoutError ? (
           <span className="checkout-error" role="alert">
             {checkoutError}
           </span>
